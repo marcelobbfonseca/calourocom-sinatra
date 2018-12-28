@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_27_184953) do
+ActiveRecord::Schema.define(version: 2018_12_28_011340) do
 
   create_table "answers", force: :cascade do |t|
     t.string "title"
@@ -22,6 +22,17 @@ ActiveRecord::Schema.define(version: 2018_12_27_184953) do
     t.datetime "updated_at"
     t.index ["post_id"], name: "index_answers_on_post_id"
     t.index ["user_id"], name: "index_answers_on_user_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.string "description"
+    t.integer "relevance"
+    t.string "answer_type"
+    t.integer "answer_id"
+    t.string "post_type"
+    t.integer "post_id"
+    t.index ["answer_type", "answer_id"], name: "index_comments_on_answer_type_and_answer_id"
+    t.index ["post_type", "post_id"], name: "index_comments_on_post_type_and_post_id"
   end
 
   create_table "institutes", force: :cascade do |t|
@@ -41,17 +52,6 @@ ActiveRecord::Schema.define(version: 2018_12_27_184953) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["user_id"], name: "index_posts_on_user_id"
-  end
-
-  create_table "threads", force: :cascade do |t|
-    t.string "comment"
-    t.integer "relevance"
-    t.string "answer_type"
-    t.integer "answer_id"
-    t.string "post_type"
-    t.integer "post_id"
-    t.index ["answer_type", "answer_id"], name: "index_threads_on_answer_type_and_answer_id"
-    t.index ["post_type", "post_id"], name: "index_threads_on_post_type_and_post_id"
   end
 
   create_table "users", force: :cascade do |t|
