@@ -4,6 +4,6 @@
 
 
 # Run localhost application
-    $ runserver bundle exec rackup -p 3000
+    $ bundle exec rackup -p 3000
 or
     $ ruby myapp.rb
