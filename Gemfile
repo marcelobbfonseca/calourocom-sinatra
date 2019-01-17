@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+# Required for sinatra/json
+gem 'sinatra-contrib'
 # Ruby ORM
 gem 'activerecord'
 gem 'sinatra-activerecord'

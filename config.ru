@@ -9,4 +9,4 @@ require './app'
 # )
 
 
-run HelloWorld
+run Application
