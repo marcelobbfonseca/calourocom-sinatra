@@ -25,4 +25,5 @@ class Institute < ActiveRecord::Base
     has_many :posts
 end
 
-
+class Tag < ActiveRecord::Base
+end

@@ -156,7 +156,7 @@ class Application < Sinatra::Base
             json user.errors.messages
         end
     end
-
+    
     delete '/posts/:post_id' do
         post = Post.find(params[:post_id])
         no_data! unless post
@@ -164,4 +164,6 @@ class Application < Sinatra::Base
         response = {status: 200, data:'success, post deleted.'}
         json response
     end
+
+    #comments routes
 end
