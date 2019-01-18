@@ -11,3 +11,5 @@ gem 'sqlite3'
 gem 'rake'
 #debugger bundle add byebug --group "development, test"
 gem "byebug", "~> 10.0", :groups => [:development, :test]
+# unit test
+gem 'rack-test', :groups => [:development, :test]

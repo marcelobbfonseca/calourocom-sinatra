@@ -7,3 +7,6 @@
     $ bundle exec rackup -p 3000
 or
     $ ruby myapp.rb
+
+# Run tests
+    $ rake test

@@ -26,7 +26,10 @@ class Application < Sinatra::Base
             json response
         end
     end
-
+    
+    get '/hello/test' do
+        'Hello World'
+    end
     #users
     get '/users' do
         users = User.all
