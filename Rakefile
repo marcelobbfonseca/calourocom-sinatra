@@ -7,14 +7,6 @@ require 'rake/testtask'
 task :default do
     puts 'type \'rake --tasks\' to list options.'
 end
-
-# desc 'Run unit tests'
-# task :test do
-#     ruby 'app.rb'
-#     ruby 'tests/unittest.rb'
-# end
-
-
 # rake test                           .run tests normally
 # rake test TEST=just_one_file.rb     .run just one test file.
 # rake test TESTOPTS="-v"             .run in verbose mode
@@ -25,3 +17,12 @@ Rake::TestTask.new do |t|
     t.test_files = FileList['tests/unittest.rb']  # test*.rb for all
     t.verbose = true
 end
+
+# namespace :db do
+#     desc "Migrate the database"
+#     task(:migrate => :environment) do
+#       ActiveRecord::Base.logger = Logger.new(STDOUT)
+#       ActiveRecord::Migration.verbose = true
+#       ActiveRecord::Migrator.migrate("db/migrate")
+#     end
+# end
