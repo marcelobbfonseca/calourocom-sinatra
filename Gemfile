@@ -13,3 +13,5 @@ gem 'rake'
 gem "byebug", "~> 10.0", :groups => [:development, :test]
 # unit test
 gem 'rack-test', :groups => [:development, :test]
+# A ruby implementation of the JWT standard
+gem 'jwt'

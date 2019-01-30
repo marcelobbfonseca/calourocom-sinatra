@@ -3,6 +3,7 @@ require 'sinatra/activerecord'
 require 'sinatra/json'
 #require 'json'
 require './models'
+require './lib/middlewares.rb'
 
 set :database, "sqlite3:forum-service.sqlite3"
 
@@ -27,6 +28,7 @@ class Application < Sinatra::Base
         end
     end
     
+
     get '/hello/test' do
         'Hello World'
     end
@@ -167,3 +169,20 @@ class Application < Sinatra::Base
 
     #comments routes
 end
+
+class Protected < Sinatra::Base 
+
+    use JWTAuthorization
+
+    before do
+        content_type :json
+    end
+
+    get '/hi' do
+        puts 'Hello Mister!'
+        response = { message: 'Hello world'}
+        json response
+    end
+end
+
+
