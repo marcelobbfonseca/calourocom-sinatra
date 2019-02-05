@@ -15,10 +15,12 @@ class JWTAuthorization
         bearer = env.fetch('HTTP_AUTHORIZATION').slice(7..-1)
         key = OpenSSL::PKey::RSA.new File.read '../rsa_2048_pub.pem'
         payload = JWT.decode bearer, key, true, { algorithm: 'RS256'}
+        byebug 
+        claims = payload.first # email, 
         
-        # payload, header = JWT.decode bearer, ENV['JWT_SECRET'], true, options
-
-        #env[:user] = payload['user']
+        if claims['iss'].elq? 'user'
+          env[:user] = User.find_by_email(claims['email'])
+        end
   
         @app.call env
       rescue JWT::DecodeError
