@@ -1,17 +1,32 @@
 require 'sinatra'
 require 'sinatra/activerecord'
 require 'sinatra/json'
-#require 'json'
+require 'pundit'
+require './authorization_policy/models_policy'
 require './models'
 require './lib/middlewares.rb'
 
-set :database, "sqlite3:forum-service.sqlite3"
+#set :show_exceptions, false
 
+configure :development do
+    set :database, "sqlite3:forum-service.sqlite3"
+end
+configure :test do
+    set :database, { adapter: 'sqlite3' , database: "db/forum_test.sqlite3", pool: 5, timeout: 5000}
+end
 
 
 class Application < Sinatra::Base
+    include Pundit
+    use JWTAuthorization
+
+    
     before do
         content_type :json
+    end
+
+    def current_user
+        env[:user]
     end
 
     helpers do
@@ -29,9 +44,6 @@ class Application < Sinatra::Base
     end
     
 
-    get '/hello/test' do
-        'Hello World'
-    end
     #users
     get '/users' do
         users = User.all
@@ -45,12 +57,6 @@ class Application < Sinatra::Base
 
     post '/users' do
         request.body.rewind  # in case someone already read it
-        # user = JSON.parse request.body.read
-        # if User.create(name: user.name, wallet:user.wallet, email: user.email)
-        #     {message: 'success. User updated', status: 200}
-        # else 
-        #     {error: 'something went wrong.', status: 404}
-        # end
         
         user_param = MultiJson.load(request.body.read)
         user = User.new( user_param )
@@ -64,6 +70,8 @@ class Application < Sinatra::Base
     put '/users/:user_id' do
         user = User.find(params[:user_id])
         no_data! unless user
+        authorize user, :edit? #Pundit::NotAuthorizedError
+
         user_params = MultiJson.load request.body.read
         if user.update(user_params)
             response = { message: 'success. User updated', status: 200}
@@ -76,7 +84,7 @@ class Application < Sinatra::Base
     delete '/users/:user_id' do
         user = User.find(params[:user_id])
         no_data! unless user
-
+        authorize user, :edit?
         user.destroy
         response = {status: 200, data:'success, user deleted.'}
         json response
@@ -121,8 +129,8 @@ class Application < Sinatra::Base
         response = {status: 200, data:'success, institute deleted.'}
         json response
     end
-    #posts routes
 
+    #posts routes
     get 'institutes/:institute_id/posts' do
         institute = Institute.find(params[:institute_id])
         no_data! unless institute
@@ -167,19 +175,31 @@ class Application < Sinatra::Base
         json response
     end
 
+    error Pundit::NotAuthorizedError do
+        message = { error: 'HOLY GUACAMOLY. Unauthorized access.', status: 401}
+        halt message
+    end
+
+    error do
+        halt 'work fuk!'
+    end
     #comments routes
 end
 
 class Protected < Sinatra::Base 
-
+    include Pundit
     use JWTAuthorization
 
     before do
         content_type :json
     end
+    def current_user
+        env[:user]
+    end
 
     get '/hi' do
-        puts 'Hello Mister!'
+        puts 'Hello Mister admin!'
+        
         response = { message: 'Hello world'}
         json response
     end

@@ -7,6 +7,7 @@ require 'rake/testtask'
 task :default do
     puts 'type \'rake --tasks\' to list options.'
 end
+
 # rake test                           .run tests normally
 # rake test TEST=just_one_file.rb     .run just one test file.
 # rake test TESTOPTS="-v"             .run in verbose mode

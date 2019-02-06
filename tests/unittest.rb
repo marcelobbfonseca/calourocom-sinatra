@@ -1,5 +1,4 @@
 ENV['APP_ENV'] = 'test'
-
 require_relative '../app.rb' 
 require 'test/unit'
 require 'rack/test'
@@ -12,8 +11,8 @@ class HelloWorldTest < Test::Unit::TestCase
       Application
     end
 
-    before do
-    end
+    # before do
+    # end
 
     def test_it_says_hello_world
         get '/hello/test'

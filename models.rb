@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
     has_many :answers
     has_many :posts
     has_many :comments
+    enum role: { user: 0, admin: 1, service: 2}
 end
 
 class Post < ActiveRecord::Base
