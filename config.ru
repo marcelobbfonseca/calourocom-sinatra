@@ -2,6 +2,7 @@
 require File.expand_path '../app.rb', __FILE__
 
 set :environment, :development
+#set :database_file, 'config/database.yaml'
 
 run Rack::URLMap.new({
     "/" => Application,
