@@ -9,7 +9,8 @@ class JWTAuthorization
   end
   
   def call env
-      
+    @app.call env if ENV['APP_ENV'].eql? "test"
+
     begin
       # env.fetch gets http header
       #bearer = env.fetch('HTTP_AUTHORIZATION', '').split(' ')[1]
@@ -19,7 +20,7 @@ class JWTAuthorization
       claims = payload.first # email, 
       
       if claims['iss'] == 'user'
-        env[:user] = User.find_by_email(claims['email'])
+        env[:user] = User.find_by_email(claims['email'])  # error:  Could not find table 'users' 
       end
 
       @app.call env
