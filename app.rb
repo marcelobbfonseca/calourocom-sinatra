@@ -8,17 +8,11 @@ require './lib/middlewares.rb'
 
 #set :show_exceptions, false
 
-# configure :development do
-#     set :database, "sqlite3:forum-service.sqlite3"
-# end
-# configure :test do
-#     set :database, { adapter: 'sqlite3' , database: "db/forum_test.sqlite3", pool: 5, timeout: 5000}
-# end
-
 
 class Application < Sinatra::Base
     include Pundit
     use JWTAuthorization
+    register Sinatra::ActiveRecordExtension
 
     
     before do
@@ -189,6 +183,7 @@ end
 class Protected < Sinatra::Base 
     include Pundit
     use JWTAuthorization
+    register Sinatra::ActiveRecordExtension
 
     before do
         content_type :json
