@@ -20,4 +20,7 @@ gem 'jwt', '~> 2.1'
 gem 'pundit'
 
 # testing
-gem 'rspec', '~> 3.0', :groups => [:test]
+group :test do
+    gem 'database_cleaner-active_record', '~> 1.8'
+    gem 'rspec', '~> 3.0'
+end
