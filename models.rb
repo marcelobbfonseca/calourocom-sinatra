@@ -25,6 +25,7 @@ end
 
 class Institute < ActiveRecord::Base
     has_many :posts
+    enum category: { private_institute: 0, federal: 1, state:2 }
 end
 
 class Tag < ActiveRecord::Base

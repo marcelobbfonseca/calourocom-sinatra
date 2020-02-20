@@ -14,7 +14,7 @@ class Application < Sinatra::Base
     use JWTAuthorization
     register Sinatra::ActiveRecordExtension
 
-    
+
     before do
         content_type :json
     end
@@ -97,8 +97,8 @@ class Application < Sinatra::Base
     end
 
     post '/institutes' do
-        institute_params = MultiJson.load(response.body.read)
-        institute = Institute.save(institute_params)
+        institute_params = MultiJson.load(request.body.read)
+        institute = Institute.new(institute_params)
         if institute.save
             json institute
         else
@@ -106,8 +106,10 @@ class Application < Sinatra::Base
         end
     end
 
-    put '/institutes' do
-        institute_params = MultiJson.load(response.body.read)
+    put '/institutes/:institute_id' do
+        institute = Institute.find(params[:institute_id])
+        institute_params = MultiJson.load(request.body.read)
+
         if institute.update(institute_params)
             response = {status: 200, data:'success, institute updated.'}
             json response
@@ -116,7 +118,7 @@ class Application < Sinatra::Base
         end
     end
 
-    delete '/insitutes/:institute_id' do
+    delete '/institutes/:institute_id' do
         institute = Institute.find(params[:institute_id])
         no_data! unless institute
         institute.destroy
@@ -139,7 +141,7 @@ class Application < Sinatra::Base
 
     post 'institutes/:institute_id/posts' do
         
-        post_params = MultiJson.load(response.body.read)
+        post_params = MultiJson.load(request.body.read)
         post = Post.new(post_params)
         post.institute = Institute.find(params[:institute_id])
         if post.save
