@@ -127,19 +127,25 @@ class Application < Sinatra::Base
     end
 
     #posts routes
-    get 'institutes/:institute_id/posts' do
+    get '/posts' do
+        posts = Post.all # orderby popular
+        json posts
+    end
+
+
+    get '/institutes/:institute_id/posts' do
         institute = Institute.find(params[:institute_id])
         no_data! unless institute
         json institute.posts
     end
 
-    get 'institutes/:institute_id/posts/:post_id' do
+    get '/posts/:post_id' do
         post = Post.find(params[:post_id])
         no_data! unless post
         json post
     end
 
-    post 'institutes/:institute_id/posts' do
+    post '/institutes/:institute_id/posts' do
         
         post_params = MultiJson.load(request.body.read)
         post = Post.new(post_params)
@@ -151,10 +157,10 @@ class Application < Sinatra::Base
         end
     end
 
-    put 'posts/:post_id' do
+    put '/posts/:post_id' do
         post = Post.find(params[:post_id])
         no_data! unless post
-        post_params = MultiJson.load response.body.read
+        post_params = MultiJson.load request.body.read
         if post.update(post_params)
             response = { message: 'success. Post updated', status: 200}
             json response

@@ -8,8 +8,6 @@
 or
     $ ruby myapp.rb
     $ APP_ENV=production ruby my_app.rb
-# Run tests
-    $ rake test
 
 ## new testing with rspec
 
@@ -17,4 +15,5 @@ or
 
 ## Database / migrations
 
-    
+    rake db:create RACK_ENV=test
+    rake db:migrate RACK_ENV=test
