@@ -27,12 +27,11 @@ ActiveRecord::Schema.define(version: 2019_02_05_140744) do
   create_table "comments", force: :cascade do |t|
     t.string "description"
     t.integer "relevance"
-    t.string "answer_type"
-    t.integer "answer_id"
-    t.string "post_type"
-    t.integer "post_id"
-    t.index ["answer_type", "answer_id"], name: "index_comments_on_answer_type_and_answer_id"
-    t.index ["post_type", "post_id"], name: "index_comments_on_post_type_and_post_id"
+    t.string "commentable_type"
+    t.integer "commentable_id"
+    t.integer "user_id"
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "institutes", force: :cascade do |t|
@@ -65,6 +64,7 @@ ActiveRecord::Schema.define(version: 2019_02_05_140744) do
 
   create_table "tags", force: :cascade do |t|
     t.string "name"
+    t.string "color"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

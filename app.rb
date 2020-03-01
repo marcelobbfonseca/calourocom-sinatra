@@ -38,6 +38,7 @@ class Application < Sinatra::Base
     end
 
     register Sinatra::AnswerRoutes
+    register Sinatra::CommentRoutes
     #users
     get '/users' do
         users = User.all
