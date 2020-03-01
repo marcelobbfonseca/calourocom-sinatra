@@ -1,8 +1,5 @@
-ENV['APP_ENV'] = 'test'
-
 require_relative '../../app'  # <-- your sinatra app
 require 'rspec'
-require 'rack/test'
 require './models'
 
 RSpec.describe 'Institute routes' do

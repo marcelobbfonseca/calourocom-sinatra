@@ -1,3 +1,5 @@
+ENV['APP_ENV'] = 'test'
+
 require 'rack/test'
 require 'database_cleaner/active_record'
 

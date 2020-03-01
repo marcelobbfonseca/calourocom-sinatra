@@ -1,8 +1,5 @@
-ENV['APP_ENV'] = 'test'
-
 require_relative '../../app'  # <-- your sinatra app
 require 'rspec'
-require 'rack/test'
 require './models'
 
 RSpec.describe 'Institute routes' do
@@ -28,7 +25,6 @@ RSpec.describe 'Institute routes' do
 
     it 'saves a new post to a institute' do
       params = {title: 'Ciencia da Computação', relevance:0, user_id:@user.id}.to_json
-        
       post "/institutes/#{@institute.id}/posts", params
       expect(last_response).to be_ok
     end
@@ -43,7 +39,6 @@ RSpec.describe 'Institute routes' do
     it 'find an existing post by id' do
       post = Post.create(title: 'Ciencia da Computação', relevance:0, user_id:@user.id, institute_id:@institute.id)
       get "/posts/#{@institute.id}"
-      expect(last_response).to be_ok
       foundPost = MultiJson.load last_response.body
       expect(last_response).to be_ok
       expect(foundPost['id']).to be(post.id)

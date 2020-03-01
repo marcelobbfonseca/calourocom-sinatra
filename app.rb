@@ -5,7 +5,7 @@ require 'pundit'
 require './authorization_policy/models_policy'
 require './models'
 require './lib/middlewares.rb'
-
+require './routes/init'
 #set :show_exceptions, false
 
 
@@ -36,8 +36,8 @@ class Application < Sinatra::Base
             json response
         end
     end
-    
 
+    register Sinatra::AnswerRoutes
     #users
     get '/users' do
         users = User.all
