@@ -1,23 +1,15 @@
 source 'https://rubygems.org'
 
-# Required for sinatra/json
-gem 'sinatra-contrib'
-# Ruby ORM
-gem 'activerecord'
-gem 'sinatra-activerecord'
-# database adapter
-gem 'sqlite3', '~> 1.3'
-# ruby makefile
-gem 'rake', '~> 12.3'
-#debugger bundle add byebug --group "development, test"
-gem "byebug", "~> 10.0", :groups => [:development, :test]
-# unit test
-gem 'rack-test', :groups => [:development, :test]
-# A ruby implementation of the JWT standard
-gem 'jwt', '~> 2.1'
-
-# authorization system
-gem 'pundit'
+gem 'sinatra-contrib'       # Required for sinatra/json
+gem 'activerecord'          # Ruby ORM
+gem 'sinatra-activerecord'  # sinatra activerecord integration
+gem 'sqlite3', '~> 1.3'     # database adapter
+gem 'rake', '~> 12.3'       # ruby makefile
+gem "byebug", "~> 10.0", :groups => [:development, :test] #debugger bundle add byebug --group "development, test"
+gem 'rack-test', :groups => [:development, :test]   # unit test
+gem 'jwt', '~> 2.1'                                 # A ruby implementation of the JWT standard
+gem 'pundit'    # authorization system
+gem 'dotenv', groups: [:development, :test]   # load .env file
 
 # testing
 group :test do
