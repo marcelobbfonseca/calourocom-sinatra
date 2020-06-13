@@ -51,7 +51,6 @@ class Application < Sinatra::Base
     error do
         halt 'work fuk!'
     end
-    #comments routes
 end
 
 class Protected < Sinatra::Base 

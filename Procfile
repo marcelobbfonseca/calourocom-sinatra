@@ -1,0 +1,1 @@
+web: APP_ENV=production ruby my_app.rb

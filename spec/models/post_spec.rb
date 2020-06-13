@@ -39,9 +39,9 @@ RSpec.describe 'Institute routes' do
     it 'find an existing post by id' do
       post = Post.create(title: 'Ciencia da Computação', relevance:0, user_id:@user.id, institute_id:@institute.id)
       get "/posts/#{@institute.id}"
-      foundPost = MultiJson.load last_response.body
+      found_post = MultiJson.load last_response.body
       expect(last_response).to be_ok
-      expect(foundPost['id']).to be(post.id)
+      expect(found_post['id']).to be(post.id)
     end
 
     it 'delete a post from an institute' do
