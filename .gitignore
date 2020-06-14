@@ -1,5 +1,5 @@
-Gemfile.lock
 forum-service.sqlite3
 .byebug_history
 bin
 .rspec
+.env

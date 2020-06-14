@@ -11,7 +11,12 @@ test:
   timeout: 5000
 
 production:
-  adapter: sqlite3
-  database: db/forum_prod_sqlite3.db
-  pool: 5
+  adapter: postgresql
+  database: <%= ENV['DATABASE_NAME'] %>
+  username: <%= ENV['DATABASE_USER'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: <%= ENV['DATABASE_HOST'] %>
+  encoding: unicode
   timeout: 5000
+  pool: 5
+

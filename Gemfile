@@ -24,3 +24,7 @@ group :test do
     gem 'database_cleaner-active_record', '~> 1.8'
     gem 'rspec', '~> 3.0'
 end
+
+group :production do
+    gem 'pg', '~> 1.2.3' #postgres adapter
+end

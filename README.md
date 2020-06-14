@@ -1,9 +1,15 @@
-# run in comand line
+# Calourocom Sinatra back-end
+works with auth Service and Vue client app
+
+## run in comand line
     $ irb
     > require './app'
 
+## Installing gem dependencies
+    $ bundle install --without=production
+    $ bundle install --without development test --deployment
 
-# Run localhost application
+## Run localhost application
     $ bundle exec rackup -p 3001
 or
     $ ruby myapp.rb
