@@ -15,7 +15,8 @@ class JWTAuthorization
       # env.fetch gets http header
       #bearer = env.fetch('HTTP_AUTHORIZATION', '').split(' ')[1]
       bearer = env.fetch('HTTP_AUTHORIZATION').slice(7..-1)
-      key = OpenSSL::PKey::RSA.new File.read '../rsa_2048_pub.pem'
+      # key = OpenSSL::PKey::RSA.new File.read '../rsa_2048_pub.pem'
+      key = OpenSSL::PKey::RSA.new ENV['PUBLIC_KEY']
       payload = JWT.decode bearer, key, true, { algorithm: 'RS256'}
       claims = payload.first # email, 
       

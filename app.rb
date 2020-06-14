@@ -1,3 +1,4 @@
+require 'dotenv/load' unless ENV['APP_ENV'].eql? 'production'
 require 'sinatra'
 require 'sinatra/activerecord'
 require 'sinatra/json'
@@ -6,6 +7,7 @@ require './authorization_policy/models_policy'
 require './models'
 require './lib/middlewares.rb'
 require './routes/init'
+
 #set :show_exceptions, false
 
 
@@ -42,6 +44,7 @@ class Application < Sinatra::Base
     register Sinatra::UserRoutes
     register Sinatra::InstituteRoutes
     register Sinatra::PostRoutes
+    register Sinatra::TagRoutes
 
     error Pundit::NotAuthorizedError do
         message = { error: 'HOLY GUACAMOLY. Unauthorized access.', status: 401}
