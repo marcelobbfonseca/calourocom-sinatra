@@ -3,3 +3,5 @@ forum-service.sqlite3
 bin
 .rspec
 .env
+vendor
+.bundle
