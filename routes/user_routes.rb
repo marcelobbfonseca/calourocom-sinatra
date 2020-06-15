@@ -42,6 +42,7 @@ module Sinatra
             app.delete '/users/:user_id' do
                 user = User.find(params[:user_id])
                 no_data! unless user
+                # byebug
                 authorize user, :edit?
                 user.destroy
                 response = {status: 200, data:'success, user deleted.'}

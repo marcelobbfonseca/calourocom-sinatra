@@ -1,4 +1,4 @@
-require 'byebug'
+# require 'byebug'
 
 class UserPolicy
     attr_reader :current_user, :profile_user
@@ -8,6 +8,7 @@ class UserPolicy
     end
 
     def edit?
+        # byebug
         current_user.id == profile_user.id or current_user.admin?
     end
 end
