@@ -1,1 +1,1 @@
-web: APP_ENV=production ruby my_app.rb
+web: APP_ENV=production ruby app.rb

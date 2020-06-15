@@ -12,8 +12,8 @@ works with auth Service and Vue client app
 ## Run localhost application
     $ bundle exec rackup -p 3001
 or
-    $ ruby myapp.rb
-    $ APP_ENV=production ruby my_app.rb
+    $ ruby app.rb
+    $ APP_ENV=production ruby app.rb
 
 ## new testing with rspec
 
