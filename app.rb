@@ -18,7 +18,7 @@ class Application < Sinatra::Base
     register Sinatra::ActiveRecordExtension
     register Sinatra::Cors
 
-    set :allow_origin, "localhost:8080"
+    set :allow_origin, "localhost:8080 https://calourocom.netlify.app"
     set :allow_methods, "GET,HEAD,POST,PUT,DELETE,OPTIONS"
 
     before do
