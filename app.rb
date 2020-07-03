@@ -3,6 +3,7 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require 'sinatra/json'
 require 'pundit'
+require "sinatra/cors"
 require './authorization_policy/models_policy'
 require './models'
 require './lib/middlewares.rb'
@@ -15,7 +16,10 @@ class Application < Sinatra::Base
     include Pundit
     use JWTAuthorization
     register Sinatra::ActiveRecordExtension
+    register Sinatra::Cors
 
+    set :allow_origin, "localhost:8080"
+    set :allow_methods, "GET,HEAD,POST,PUT,DELETE,OPTIONS"
 
     before do
         content_type :json
