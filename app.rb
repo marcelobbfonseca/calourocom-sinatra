@@ -16,16 +16,19 @@ class Application < Sinatra::Base
     include Pundit
     use JWTAuthorization
     register Sinatra::ActiveRecordExtension
-    register Sinatra::Cors
-
-    set :allow_origin, "http://localhost:8080 https://calourocom.netlify.app"
-    set :allow_methods, "*"
-    set :allow_headers, "*"
-    set :expose_headers, "*"
-
+    # register Sinatra::Cors
     before do
+        headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
+        headers['Access-Control-Allow-Origin'] = '*'
+        headers['Access-Control-Allow-Headers'] = 'accept, authorization, origin'
         content_type :json
     end
+
+    options '*' do
+        response.headers['Allow'] = 'HEAD,GET,PUT,DELETE,OPTIONS,POST'
+        response.headers['Access-Control-Allow-Headers'] = 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Cache-Control, Accept'
+    end
+
 
     def current_user
         env[:user]
