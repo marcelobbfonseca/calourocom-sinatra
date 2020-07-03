@@ -19,7 +19,7 @@ class Application < Sinatra::Base
     # register Sinatra::Cors
     before do
         headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
-        headers['Access-Control-Allow-Origin'] = '*'
+        headers['Access-Control-Allow-Origin'] = 'https://calourocom.netlify.app/, http://localhost:8080/'
         headers['Access-Control-Allow-Headers'] = 'accept, authorization, origin'
         content_type :json
     end
