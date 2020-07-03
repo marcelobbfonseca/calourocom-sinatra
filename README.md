@@ -10,7 +10,7 @@ works with auth Service and Vue client app
     $ bundle install --without development test --deployment
 
 ## Run localhost application
-    $ bundle exec rackup -p 3001
+    $ bundle exec rackup -p 3000
 or
     $ ruby app.rb
     $ APP_ENV=production ruby app.rb
