@@ -6,7 +6,7 @@ gem 'sinatra-activerecord'  # sinatra activerecord integration
 gem 'rake', '~> 12.3'       # ruby makefile
 gem 'jwt', '~> 2.1'         # A ruby implementation of the JWT standard
 gem 'pundit'    # authorization system
-gem 'sinatra-cors', '~> 1.1' # cors for localhost
+gem "sinatra-cross_origin", "~> 0.3.1"# cors for localhost
 
 group :test, :development do
     gem 'sqlite3', '~> 1.3'     # database adapter
