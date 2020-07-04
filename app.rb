@@ -21,8 +21,8 @@ class Application < Sinatra::Base
     end
     before do
         response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
-        response.headers['Access-Control-Allow-Origin'] = 'https://calourocom.netlify.app/, http://localhost:8080/'
-        # response.headers['Access-Control-Allow-Origin'] = '*'
+        # response.headers['Access-Control-Allow-Origin'] = 'https://calourocom.netlify.app/, http://localhost:8080/'
+        response.headers['Access-Control-Allow-Origin'] = '*'
         response.headers['Access-Control-Allow-Headers'] = 'accept, authorization, origin'
         content_type :json
     end
