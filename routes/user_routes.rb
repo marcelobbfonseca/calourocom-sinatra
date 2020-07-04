@@ -48,6 +48,10 @@ module Sinatra
                 response = {status: 200, data:'success, user deleted.'}
                 json response
             end
+
+            app.get '/users/signIn' do
+                json current_user
+            end
         
         end
     end
