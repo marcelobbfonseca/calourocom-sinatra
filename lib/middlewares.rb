@@ -1,4 +1,4 @@
-# require 'byebug'
+require 'byebug' unless ENV['APP_ENV'].eql? 'production'
 require 'sinatra/json'
 require 'jwt'
 
@@ -21,7 +21,9 @@ class JWTAuthorization
       claims = payload.first # email, 
       
       if claims['iss'] == 'user'
-        env[:user] = User.find_by_email(claims['email'])  # error:  Could not find table 'users' 
+        user = User.find_by_email(claims['email'])
+        user = User.create({email: claims['email']}) if user.nil?
+        env[:user] = user
       end
 
       @app.call env
