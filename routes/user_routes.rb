@@ -49,7 +49,7 @@ module Sinatra
                 json response
             end
 
-            app.get '/users/signIn' do
+            app.get '/user-signin' do
                 json current_user
             end
         
