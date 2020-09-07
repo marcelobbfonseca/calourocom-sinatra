@@ -4,6 +4,8 @@ works with auth Service and Vue client app
 ## run in comand line
     $ irb
     > require './app'
+    # or
+    $ bundle exec irb -r app.rb
 
 ## Installing gem dependencies
     $ bundle install --without=production

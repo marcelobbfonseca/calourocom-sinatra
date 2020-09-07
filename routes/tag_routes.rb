@@ -4,7 +4,7 @@ module Sinatra
     module TagRoutes
         def self.registered(app)
             app.get '/tags' do
-                tags = Tag.all
+                if params.empty? then tags = Tag.all else tags = Tag.where(params) end
                 json tags
             end
         

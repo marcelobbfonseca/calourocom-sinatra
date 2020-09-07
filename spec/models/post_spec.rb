@@ -24,7 +24,7 @@ RSpec.describe 'Institute routes' do
     end
 
     it 'saves a new post to a institute' do
-      params = {title: 'Ciencia da Computação', relevance:0, user_id:@user.id}.to_json
+      params = { post: {title: 'Ciencia da Computação', relevance:0, user_id:@user.id}}.to_json
       post "/institutes/#{@institute.id}/posts", params
       expect(last_response).to be_ok
     end

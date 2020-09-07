@@ -10,6 +10,7 @@ class Post < ActiveRecord::Base
     belongs_to :institute
     has_many :answers
     has_many :comments, as: :commentable
+    has_many :posts_tags
     has_many :tags, through: :posts_tags
 end
 
@@ -30,6 +31,7 @@ class Institute < ActiveRecord::Base
 end
 
 class Tag < ActiveRecord::Base
+    has_many :posts_tags
     has_many :posts, through: :posts_tags
 end
 

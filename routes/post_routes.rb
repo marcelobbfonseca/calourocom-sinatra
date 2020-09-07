@@ -22,8 +22,15 @@ module Sinatra
         
             app.post '/institutes/:institute_id/posts' do
                 post_params = MultiJson.load(request.body.read)
-                post = Post.new(post_params)
+                
+                post = Post.new(post_params['post'])
                 post.institute = Institute.find(params[:institute_id])
+                tags = []
+                post_params['tags'].each do |tag_name|
+                    tags << Tag.find_or_create_by({name: tag_name, color:'green'})   
+                end
+                post.tags = tags
+
                 if post.save
                     json post
                 else 
