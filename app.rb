@@ -1,54 +1,31 @@
 require 'dotenv/load' unless ENV['APP_ENV'].eql? 'production'
 require 'sinatra'
 require 'sinatra/activerecord'
-# require 'sinatra/cross_origin'
 require 'pundit'
 require './authorization_policy/models_policy'
 require './models'
 require './lib/middlewares.rb'
 require './routes/application_routes'
+require './helpers/application_helpers' # TODO: move load to config ru
 
 #set :show_exceptions, false unless ENV['APP_ENV'].eql? 'production'
 
 
 class Application < Sinatra::Base
+
+
+    helpers ApplicationHelpers
     include Pundit
     use JWTAuthorization
     register Sinatra::ActiveRecordExtension
     set :bind, '0.0.0.0' # make interface available outside localhost
 
+
     def current_user
         env[:user]
     end
 
-    helpers do
-        def json( dataset )
-            if !dataset #.empty?
-                return no_data!
-            else
-                JSON.pretty_generate(JSON.load(dataset.to_json)) + "\n"
-            end
-        end
-        def no_data!
-            response = { message: 'data not found.', status: 204 }.to_json
-            json response
-        end
-    end
-
-    # options "*" do
-    #     response.headers['Allow'] = 'HEAD,GET,PUT,DELETE,OPTIONS,POST'
-    #     response.headers['Access-Control-Allow-Headers'] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Cache-Control, Accept,  Authorization"
-    #     response.headers["Access-Control-Allow-Origin"] = "*"
-    #     200
-    # end
-
-
     get '/teste' do
-        # cross_origin allow_origin: '*', allow_methods: [:get]
-        
-        # return if this is an OPTIONS request
-        # status 204 and return if request.request_method.to_s.match(/^options$/i)  
-              
         response = { message: 'Hello world'}
         json response
     end

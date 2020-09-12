@@ -15,9 +15,18 @@ module Sinatra
             end
         
             app.get '/posts/:post_id' do
-                post = Post.find(params[:post_id])
+                post = Post.eager_load(:user, :comments, :tags, answers:[comments:[:user]]).find(params[:post_id])
                 no_data! unless post
-                json post
+                post.to_json(:include => [
+                    :comments,:user, :tags, 
+                    {
+                        :answers =>{
+                            :include => {
+                                :comments => { :include => :user}  
+                            } 
+                        }
+                    } 
+                ])
             end
         
             app.post '/institutes/:institute_id/posts' do
@@ -26,8 +35,10 @@ module Sinatra
                 post = Post.new(post_params['post'])
                 post.institute = Institute.find(params[:institute_id])
                 tags = []
-                post_params['tags'].each do |tag_name|
-                    tags << Tag.find_or_create_by({name: tag_name, color:'green'})   
+                if post_params['tags'].present?
+                    post_params['tags'].each do |tag_name|
+                        tags << Tag.find_or_create_by({name: tag_name, color:'green'})   
+                    end
                 end
                 post.tags = tags
 

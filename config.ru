@@ -5,6 +5,7 @@ require 'rack/cors'
 set :environment, :development
 #set :database_file, 'config/database.yaml'
 
+# TODO Not loading correctly
 # Dir.glob('./{models,helpers,controllers}/*.rb').each { |file| require file }
 Dir.glob('./{helpers,}/*.rb').each { |file| require file }
 

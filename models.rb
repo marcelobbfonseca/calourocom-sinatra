@@ -6,23 +6,29 @@ class User < ActiveRecord::Base
 end
 
 class Post < ActiveRecord::Base
+    
     belongs_to :user
     belongs_to :institute
     has_many :answers
-    has_many :comments, as: :commentable
+    has_many :comments, as: :commentable #, -> { order(:relevance) }
     has_many :posts_tags
     has_many :tags, through: :posts_tags
+    default_scope { order(:relevance) }
+
 end
 
 class Answer < ActiveRecord::Base
     belongs_to :user
     belongs_to :post
-    has_many :comments, as: :commentable
+    has_many :comments, as: :commentable  #,  -> { order(:relevance) }
+    default_scope { order(:relevance) }
 end
 
 class Comment < ActiveRecord::Base
     belongs_to :commentable, polymorphic: true
     belongs_to :user
+    default_scope { order(:relevance) }
+
 end
 
 class Institute < ActiveRecord::Base
@@ -38,4 +44,5 @@ end
 class PostsTag < ActiveRecord::Base
     belongs_to :tag
     belongs_to :post
+    default_scope { order(:color) }
 end
