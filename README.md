@@ -25,3 +25,4 @@ or
 
     rake db:create RACK_ENV=test
     rake db:migrate RACK_ENV=test
+    rake db:migrate:reset # Drop database, create it and re-apply migrations

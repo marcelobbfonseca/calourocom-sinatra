@@ -13,8 +13,7 @@
 ActiveRecord::Schema.define(version: 2019_02_05_140744) do
 
   create_table "answers", force: :cascade do |t|
-    t.string "title"
-    t.string "description"
+    t.text "description"
     t.integer "relevance"
     t.integer "user_id"
     t.integer "post_id"
@@ -45,8 +44,9 @@ ActiveRecord::Schema.define(version: 2019_02_05_140744) do
 
   create_table "posts", force: :cascade do |t|
     t.string "title"
-    t.string "description"
+    t.text "description"
     t.integer "relevance"
+    t.integer "views", default: 0
     t.integer "user_id"
     t.integer "institute_id"
     t.datetime "created_at"
@@ -71,8 +71,10 @@ ActiveRecord::Schema.define(version: 2019_02_05_140744) do
 
   create_table "users", force: :cascade do |t|
     t.string "name"
-    t.string "wallet"
     t.string "email"
+    t.string "avatar", default: "/img/anonymous-female-icon-16.png"
+    t.integer "points", default: 0
+    t.string "wallet"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "role"

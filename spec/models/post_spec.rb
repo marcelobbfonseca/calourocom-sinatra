@@ -14,11 +14,17 @@ RSpec.describe 'Institute routes' do
     end
 
     it "Get all posts from a institute" do
+      post = Post.create(title: 'Ciencia da Computação', relevance:0, user_id:@user.id, institute_id:@institute.id)
+      post.tags = [Tag.new(name: 'UnB', color: 'blue')]
+      post.save
       get "/institutes/#{@institute.id}/posts"
       expect(last_response).to be_ok
     end
 
     it 'gets all posts' do
+      post = Post.create(title: 'Ciencia da Computação', relevance:0, user_id:@user.id, institute_id:@institute.id)
+      post.tags = [Tag.new(name: 'UnB', color: 'blue')]
+      post.save
       get '/posts'
       expect(last_response).to be_ok
     end

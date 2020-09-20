@@ -4,25 +4,25 @@ module Sinatra
     module PostRoutes
         def self.registered(app)
             app.get '/posts' do
-                posts = Post.all # orderby popular
-                json posts
+                posts = Post.eager_load(:author, :tags, :answers)
+                posts.to_json(methods: :answers_count, include: [:tags, {author: { only: [:name, :email ]} }])     
             end
         
             app.get '/institutes/:institute_id/posts' do
                 institute = Institute.find(params[:institute_id])
                 no_data! unless institute
-                json institute.posts
+                institute.posts.to_json(:include => [ :tags, {:author => { :only => [:name, :email ]} }])
             end
         
             app.get '/posts/:post_id' do
-                post = Post.eager_load(:user, :comments, :tags, answers:[comments:[:user]]).find(params[:post_id])
+                post = Post.eager_load(:author, :comments, :tags, answers:[comments:[:author]]).find(params[:post_id])
                 no_data! unless post
                 post.to_json(:include => [
-                    :comments,:user, :tags, 
+                    :comments,:author, :tags, 
                     {
                         :answers =>{
                             :include => {
-                                :comments => { :include => :user}  
+                                :comments => { :include => :author}  
                             } 
                         }
                     } 
@@ -31,16 +31,15 @@ module Sinatra
         
             app.post '/institutes/:institute_id/posts' do
                 post_params = MultiJson.load(request.body.read)
-                
                 post = Post.new(post_params['post'])
                 post.institute = Institute.find(params[:institute_id])
-                tags = []
                 if post_params['tags'].present?
+                    tags = []
                     post_params['tags'].each do |tag_name|
                         tags << Tag.find_or_create_by({name: tag_name, color:'green'})   
                     end
+                    post.tags = tags
                 end
-                post.tags = tags
 
                 if post.save
                     json post
