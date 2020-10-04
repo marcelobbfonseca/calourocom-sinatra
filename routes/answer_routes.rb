@@ -24,10 +24,20 @@ module Sinatra
             app.post '/answers' do
                 request.body.rewind  # in case someone already read it
                 
-                answer_param = MultiJson.load(request.body.read)
-                answer = Answer.new( answer_param )
+                answer_params = MultiJson.load(request.body.read)
+                answer = Answer.new( answer_params['answer'] )
+                byebug
+                # TODO
+                # if answer_params['tags'].present?
+                #     tags = []
+                #     answer_params['tags'].each do |tag_name|
+                #         tags << Tag.find_or_create_by({name: tag_name, color:'green'})   
+                #     end
+                #     answer.tags = tags
+                # end
+
                 if answer.save
-                    json answer
+                    answer.to_json(include: [:author, :comments])
                 else
                     no_data!
                 end

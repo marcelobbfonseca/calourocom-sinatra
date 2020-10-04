@@ -9,7 +9,7 @@ class Post < ActiveRecord::Base
     belongs_to :author, class_name: 'User', foreign_key: 'user_id', inverse_of: :posts
     belongs_to :institute
     has_many :answers
-    has_many :comments, as: :commentable #, -> { order(:relevance) }
+    has_many :comments, as: :commentable
     has_many :posts_tags
     has_many :tags, through: :posts_tags
     default_scope { order(:relevance) }
@@ -23,7 +23,7 @@ end
 class Answer < ActiveRecord::Base
     belongs_to :author, class_name: 'User', foreign_key: 'user_id', inverse_of: :posts
     belongs_to :post
-    has_many :comments, as: :commentable  #,  -> { order(:relevance) }
+    has_many :comments, as: :commentable 
     default_scope { order(:relevance) }
 end
 

@@ -7,7 +7,8 @@ require './models'
 require './lib/middlewares.rb'
 require './routes/application_routes'
 require './helpers/application_helpers' # TODO: move load to config ru
-
+require './helpers/auth_helper'
+require 'jwt'
 #set :show_exceptions, false unless ENV['APP_ENV'].eql? 'production'
 
 
@@ -15,8 +16,9 @@ class Application < Sinatra::Base
 
 
     helpers ApplicationHelpers
+    helpers AuthHelper
     include Pundit
-    use JWTAuthorization
+    # use JWTAuthorization
     register Sinatra::ActiveRecordExtension
     set :bind, '0.0.0.0' # make interface available outside localhost
 
@@ -26,6 +28,8 @@ class Application < Sinatra::Base
     end
 
     get '/teste' do
+        protected!
+        
         response = { message: 'Hello world'}
         json response
     end

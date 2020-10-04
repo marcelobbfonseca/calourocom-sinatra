@@ -24,10 +24,10 @@ module Sinatra
             app.post '/comments' do
                 request.body.rewind  # in case someone already read it
                 
-                comment_param = MultiJson.load(request.body.read)
-                comment = Comment.new( comment_param )
+                comment_params = MultiJson.load(request.body.read)
+                comment = Comment.new( comment_params['comment'] )
                 if comment.save
-                    json comment
+                    comment.to_json(include: :author)
                 else
                     no_data!
                 end

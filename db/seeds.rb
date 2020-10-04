@@ -3,11 +3,10 @@
 # rake db:seed  #
 #   #   #   #   #
 # require ../models
-# anom user
 users = [
   {name: 'Jane', wallet: '0x002001932211Toe', email: 'e@example.com'},
   {email: 'hello@hello.com'},
-  {email: 'calourocom@calourocom', name:'Anonimo'}
+  
 ]
 tags = [
   {name: 'UnB', color: 'blue' },
@@ -20,7 +19,8 @@ tags = [
   {name: 'Engenharia', color: 'green' },
   {name: 'Exatas', color: 'green' },
 ]
-
+# User.find_or_create_by(email: 'hello@hello.com', name:'Hello World', role: 0)
+User.find_or_create_by(email: 'calourocom@calourocom', name:'Anonimo', role: 0)
 
 unb = Institute.find_or_create_by({name:"Universidade de Brasilia",description: "UnB - Universidade de Brasilia",category: :federal, image_file:'https://pt.wikipedia.org/wiki/Universidade_de_Bras%C3%ADlia#/media/Ficheiro:Webysther_20160322_-_Logo_UnB_(sem_texto).svg'})
 user = User.find_or_create_by(name: 'Dinesh', email: 'dinesh@piper.com', role: 0)

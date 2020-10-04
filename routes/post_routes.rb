@@ -15,17 +15,15 @@ module Sinatra
             end
         
             app.get '/posts/:post_id' do
-                post = Post.eager_load(:author, :comments, :tags, answers:[comments:[:author]]).find(params[:post_id])
+                post = Post.eager_load(:author, :tags, comments:[ :author], answers:[ :author ,comments: :author] ).find(params[:post_id])
                 no_data! unless post
                 post.to_json(:include => [
-                    :comments,:author, :tags, 
+                    :author, :tags, {comments: {include: :author}}, 
                     {
                         :answers =>{
-                            :include => {
-                                :comments => { :include => :author}  
-                            } 
+                            :include => [:author, {:comments => { :include => :author}} ]
                         }
-                    } 
+                    }
                 ])
             end
         
@@ -52,7 +50,7 @@ module Sinatra
                 post = Post.find(params[:post_id])
                 no_data! unless post
                 post_params = MultiJson.load request.body.read
-                if post.update(post_params)
+                if post.update(post_params['post'])
                     response = { message: 'success. Post updated', status: 200}
                     json response
                 else
