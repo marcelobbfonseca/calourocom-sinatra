@@ -14,8 +14,10 @@ works with auth Service and Vue client app
 ## Run localhost application
     $ bundle exec rackup -p 3000
 or
+    
     $ ruby app.rb
     $ APP_ENV=production ruby app.rb
+    $ rerun 'ruby app.rb' # for reloading in dev
 
 ## new testing with rspec
 
@@ -26,3 +28,4 @@ or
     rake db:create RACK_ENV=test
     rake db:migrate RACK_ENV=test
     rake db:migrate:reset # Drop database, create it and re-apply migrations
+    rake db:seed

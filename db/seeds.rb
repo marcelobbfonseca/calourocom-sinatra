@@ -19,7 +19,7 @@ tags = [
   {name: 'Engenharia', color: 'green' },
   {name: 'Exatas', color: 'green' },
 ]
-# User.find_or_create_by(email: 'hello@hello.com', name:'Hello World', role: 0)
+# User.find_or_create_by(email: 'hello@hello.com', name:'Sir Hello World', role: 0)
 User.find_or_create_by(email: 'calourocom@calourocom', name:'Anonimo', role: 0)
 
 unb = Institute.find_or_create_by({name:"Universidade de Brasilia",description: "UnB - Universidade de Brasilia",category: :federal, image_file:'https://pt.wikipedia.org/wiki/Universidade_de_Bras%C3%ADlia#/media/Ficheiro:Webysther_20160322_-_Logo_UnB_(sem_texto).svg'})

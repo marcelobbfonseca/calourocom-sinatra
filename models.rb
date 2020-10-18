@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
     has_many :answers
     has_many :posts, inverse_of: :author
     has_many :comments
+    belongs_to :institute
     enum role: { user: 0, admin: 1, service: 2}
 end
 
@@ -36,6 +37,7 @@ end
 
 class Institute < ActiveRecord::Base
     has_many :posts
+    has_many :users
     enum category: { private_institute: 0, federal: 1, state:2 }
 end
 
