@@ -10,7 +10,7 @@ module Sinatra
         
             app.get '/users/:user_id' do
                 user = User.find(params[:user_id])
-                json user
+                user.to_json(include: :institute)
             end
         
             app.post '/users' do
@@ -26,12 +26,14 @@ module Sinatra
             end
             
             app.put '/users/:user_id' do
+                protected!
                 user = User.find(params[:user_id])
                 no_data! unless user
+
                 authorize user, :edit? #Pundit::NotAuthorizedError
         
                 user_params = MultiJson.load request.body.read
-                if user.update(user_params)
+                if user.update(user_params['user'])
                     response = { message: 'success. User updated', status: 200}
                     json response
                 else
@@ -50,6 +52,7 @@ module Sinatra
             end
 
             app.get '/user-signin' do
+                protected!
                 json current_user
             end
         

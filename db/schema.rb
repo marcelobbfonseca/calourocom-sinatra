@@ -14,7 +14,7 @@ ActiveRecord::Schema.define(version: 2019_02_05_140744) do
 
   create_table "answers", force: :cascade do |t|
     t.text "description"
-    t.integer "relevance"
+    t.integer "relevance", default: 0
     t.integer "user_id"
     t.integer "post_id"
     t.datetime "created_at"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2019_02_05_140744) do
 
   create_table "comments", force: :cascade do |t|
     t.string "description"
-    t.integer "relevance"
+    t.integer "relevance", default: 0
     t.string "commentable_type"
     t.integer "commentable_id"
     t.integer "user_id"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 2019_02_05_140744) do
   create_table "posts", force: :cascade do |t|
     t.string "title"
     t.text "description"
-    t.integer "relevance"
+    t.integer "relevance", default: 0
     t.integer "views", default: 0
     t.integer "user_id"
     t.integer "institute_id"
@@ -70,14 +70,16 @@ ActiveRecord::Schema.define(version: 2019_02_05_140744) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
+    t.string "name", default: "calourocom@3896"
     t.string "email"
     t.string "avatar", default: "/img/anonymous-female-icon-16.png"
     t.integer "points", default: 0
     t.string "wallet"
+    t.integer "institute_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "role"
+    t.index ["institute_id"], name: "index_users_on_institute_id"
   end
 
   add_foreign_key "answers", "posts"
@@ -87,4 +89,5 @@ ActiveRecord::Schema.define(version: 2019_02_05_140744) do
   add_foreign_key "posts", "users"
   add_foreign_key "posts_tags", "posts"
   add_foreign_key "posts_tags", "tags"
+  add_foreign_key "users", "institutes"
 end
