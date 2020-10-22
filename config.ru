@@ -2,8 +2,9 @@
 require File.expand_path '../app.rb', __FILE__
 require 'rack/cors'
 
-set :environment, :development
-#set :database_file, 'config/database.yaml'
+
+ENV['RACK_ENV']? env = ENV['RACK_ENV'].to_sym : env = :development 
+set :environment, env
 
 # TODO Not loading correctly
 # Dir.glob('./{models,helpers,controllers}/*.rb').each { |file| require file }
@@ -13,12 +14,6 @@ run Rack::URLMap.new({
     "/" => Application,
     "/admin" => Protected
   })
-
-# ActiveRecord::Base.establish_connection(
-#   :adapter => 'sqlite3',
-#   :database =>  'forum-service.sqlite3.db'
-# )
-#run Application
 
 #cors rack
 use Rack::Cors do
