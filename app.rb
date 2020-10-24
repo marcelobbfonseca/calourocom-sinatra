@@ -33,7 +33,9 @@ class Application < Sinatra::Base
     # end
 
     options '*' do
+      puts ">>>!!!!   IM HEREEE      !!!!!<<<"
       headers["Allow"] = "GET, PUT, POST, DELETE, OPTIONS"
+      headers["Access-Control-Allow-Methods"] = '*'
       headers["Access-Control-Allow-Origin"] = '*'
       headers["Access-Control-Allow-Headers"] = '*'  # "Authorization, Content-Type, Accept, X-User-Email, X-Auth-Token"
       200
