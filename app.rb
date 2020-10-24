@@ -33,16 +33,15 @@ class Application < Sinatra::Base
     end
 
     options '*' do
-        response.headers["Allow"] = "GET, PUT, POST, DELETE, OPTIONS"
-        response.headers["Access-Control-Allow-Headers"] = "Authorization, Content-Type, Accept, X-User-Email, X-Auth-Token"
-        response.headers["Access-Control-Allow-Origin"] = "*"
-        200
+        headers["Allow"] = "GET, PUT, POST, DELETE, OPTIONS"
+        headers["Access-Control-Allow-Headers"] = "Authorization, Content-Type, Accept, X-User-Email, X-Auth-Token"
+        halt 200
     end
 
     get '/teste' do
         protected!
-        
-        response = { message: 'Hello world'}
+        hello = 'hello world'
+        response = { message: 'Ok'}
         json response
     end
     register Sinatra::AnswerRoutes

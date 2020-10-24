@@ -26,7 +26,6 @@ module Sinatra
                 
                 answer_params = MultiJson.load(request.body.read)
                 answer = Answer.new( answer_params['answer'] )
-                byebug
                 # TODO
                 # if answer_params['tags'].present?
                 #     tags = []
