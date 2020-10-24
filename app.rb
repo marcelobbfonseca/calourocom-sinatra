@@ -28,13 +28,14 @@ class Application < Sinatra::Base
     end
 
     before do
-      response.headers["Access-Control-Allow-Origin"] = "*"
-      response.headers["Access-Control-Allow-Methods"] = "*"
+      response.headers["Access-Control-Allow-Origin"] = '*'
+      response.headers["Access-Control-Allow-Methods"] = '*'
     end
 
     options '*' do
       headers["Allow"] = "GET, PUT, POST, DELETE, OPTIONS"
-      headers["Access-Control-Allow-Headers"] = "Authorization, Content-Type, Accept, X-User-Email, X-Auth-Token"
+      headers["Access-Control-Allow-Headers"] = '*'  # "Authorization, Content-Type, Accept, X-User-Email, X-Auth-Token"
+      headers["Access-Control-Allow-Origin"] = '*'
       200
     end
 
