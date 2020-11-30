@@ -5,3 +5,6 @@ bin
 .env
 vendor
 .bundle
+.DS_Store
+forum_dev_sqlite3.db
+forum_test_sqlite3.db
